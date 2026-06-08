@@ -1,0 +1,41 @@
+﻿@using GLMS.Shared.DTOs
+@model ServiceRequestDto
+
+<h2>Edit Service Request</h2>
+
+<form method="post">
+
+    <input type="hidden" asp-for="Id" />
+
+    <label>Contract</label>
+    <select asp-for="ContractId" class="form-control">
+
+        @foreach (var c in ViewBag.Contracts)
+        {
+            <option value="@c.Id" selected="@(c.Id == Model.ContractId)">
+                @c.Id
+            </option>
+        }
+    </select>
+
+    <label>Service Type</label>
+    <select asp-for="ServiceType" class="form-control">
+
+        @foreach (var s in ViewBag.ServiceTypes)
+        {
+            <option value="@s" selected="@(s == Model.ServiceType)">
+                @s
+            </option>
+        }
+    </select>
+
+    <label>Description</label>
+    <input asp-for="Description" class="form-control" />
+
+    <label>USD Amount</label>
+    <input asp-for="USDAmount" class="form-control" />
+
+    <button type="submit" class="btn btn-warning mt-3">
+        Update
+    </button>
+</form>

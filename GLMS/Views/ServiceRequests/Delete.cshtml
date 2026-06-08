@@ -1,0 +1,25 @@
+﻿@using GLMS.Shared.DTOs
+@model ServiceRequestDto
+
+<h2>Delete Service Request</h2>
+
+<h4>Are you sure you want to delete this request?</h4>
+
+<div class="border p-3 mb-3">
+    <p><strong>Contract:</strong> @Model.ContractId</p>
+    <p><strong>Description:</strong> @Model.Description</p>
+    <p><strong>USD:</strong> @Model.USDAmount</p>
+    <p><strong>ZAR:</strong> @Model.ZARAmount</p>
+</div>
+
+<form method="post" asp-action="DeleteConfirmed">
+    <input type="hidden" name="id" value="@Model.Id" />
+
+    <button type="submit" class="btn btn-danger">
+        Delete
+    </button>
+
+    <a href="/ServiceRequests" class="btn btn-secondary">
+        Cancel
+    </a>
+</form>

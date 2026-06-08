@@ -1,0 +1,37 @@
+﻿@using GLMS.Shared.DTOs
+@model List<ServiceRequestDto>
+
+<h2>Service Requests</h2>
+
+<a class="btn btn-primary" href="/ServiceRequests/Create">Create</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Contract Id</th>
+            <th>Service Type</th>
+            <th>Description</th>
+            <th>USD</th>
+            <th>ZAR</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.ContractId</td>
+                <td>@r.ServiceType</td>
+                <td>@r.Description</td>
+                <td>@r.USDAmount</td>
+                <td>@r.ZARAmount</td>
+                <td>
+                    <a href="/ServiceRequests/Details/@r.Id">View</a> |
+                    <a href="/ServiceRequests/Edit/@r.Id">Edit</a> |
+                    <a href="/ServiceRequests/Delete/@r.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

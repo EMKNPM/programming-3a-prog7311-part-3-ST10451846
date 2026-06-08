@@ -1,0 +1,33 @@
+﻿@using GLMS.Shared.DTOs
+@model List<ClientDto>
+
+<h2>Clients</h2>
+
+<a class="btn btn-primary" href="/Clients/Create">Create Client</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Region</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.Name</td>
+                <td>@c.ContactDetails</td>
+                <td>@c.Region</td>
+                <td>
+                    <a href="/Clients/Details/@c.Id">View</a> |
+                    <a href="/Clients/Edit/@c.Id">Edit</a> |
+                    <a href="/Clients/Delete/@c.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

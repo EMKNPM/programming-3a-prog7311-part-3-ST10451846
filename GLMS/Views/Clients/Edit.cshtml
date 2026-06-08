@@ -1,0 +1,19 @@
+﻿@using GLMS.Shared.DTOs
+@model ClientDto
+
+<h2>Edit Client</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <label>Name</label>
+    <input asp-for="Name" class="form-control" />
+
+    <label>Contact Details</label>
+    <input asp-for="ContactDetails" class="form-control" />
+
+    <label>Region</label>
+    <input asp-for="Region" class="form-control" />
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

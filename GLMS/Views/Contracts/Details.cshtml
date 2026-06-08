@@ -1,0 +1,16 @@
+﻿@model ContractDto
+
+<h2>Contract Details</h2>
+
+<p><strong>Client:</strong> @Model.ClientName</p>
+<p><strong>Start:</strong> @Model.StartDate</p>
+<p><strong>End:</strong> @Model.EndDate</p>
+<p><strong>Status:</strong> @Model.Status</p>
+<p><strong>Service Level:</strong> @Model.ServiceLevel</p>
+
+@if (!string.IsNullOrEmpty(Model.AgreementFilePath))
+{
+    <a href="@Model.AgreementFilePath" class="btn btn-info">Download Agreement</a>
+}
+
+<a href="/Contracts/Index">Back</a>

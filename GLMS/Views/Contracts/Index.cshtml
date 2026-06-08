@@ -1,0 +1,95 @@
+﻿@model List<ContractDto>
+
+<h2>Contracts</h2>
+
+<a class="btn btn-primary" href="/Contracts/Create">Create Contract</a>
+
+<!-- ✅ FIX: wrap filters in a FORM -->
+<form method="get" asp-action="Index">
+    <div class="row mt-3">
+
+        <div class="col-md-3">
+            <label>Status</label>
+            <select name="status" class="form-control">
+                <option value="">All</option>
+                <option value="Active">Active</option>
+                <option value="Expired">Expired</option>
+                <option value="On Hold">On Hold</option>
+                <option value="Draft">Draft</option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label>Start Date</label>
+            <input type="date" name="startDate" class="form-control" />
+        </div>
+
+        <div class="col-md-3">
+            <label>End Date</label>
+            <input type="date" name="endDate" class="form-control" />
+        </div>
+
+        <div class="col-md-3 mt-4">
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a asp-action="Index" class="btn btn-secondary">Reset</a>
+        </div>
+
+    </div>
+</form>
+
+<hr />
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Client</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Status</th>
+            <th>Service Level</th>
+            <th>Document</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var c in Model)
+            {
+                <tr>
+                    <td>@c.ClientName</td>
+                    <td>@c.StartDate.ToShortDateString()</td>
+                    <td>@c.EndDate.ToShortDateString()</td>
+                    <td>@c.Status</td>
+                    <td>@c.ServiceLevel</td>
+
+                    <td>
+                        @if (!string.IsNullOrEmpty(c.AgreementFilePath))
+                        {
+                            <a href="@Url.Content(c.AgreementFilePath)" target="_blank">
+                                View PDF
+                            </a>
+                        }
+                        else
+                        {
+                            <span>No document</span>
+                        }
+                    </td>
+
+                    <td>
+                        <a href="/Contracts/Details/@c.Id">View</a> |
+                        <a href="/Contracts/Edit/@c.Id">Edit</a> |
+                        <a href="/Contracts/Delete/@c.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7" class="text-center">No contracts found</td>
+            </tr>
+        }
+    </tbody>
+</table>

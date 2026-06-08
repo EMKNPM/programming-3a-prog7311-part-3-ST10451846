@@ -5,13 +5,15 @@ namespace GLMS_Tests
 {
     public class UnitTest1
     {
+        
         private HttpClient _client;
 
         [Fact]
         public void Test1()
         {
+           
             _client = new HttpClient();
-            _client.BaseAddress = new Uri("http://glms-backend-api:8080");
+            _client.BaseAddress = new Uri("http://localhost:8080");
         }
     }
 }

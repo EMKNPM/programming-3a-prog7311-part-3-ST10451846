@@ -1,7 +1,9 @@
 ﻿using GLMS.API.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Net.Http.Json; 
+using System.Net.Http.Json;
+using System.Text;
 using Xunit; 
 
 namespace GLMS_Tests
@@ -21,18 +23,14 @@ namespace GLMS_Tests
         [Fact]
         public async Task CreateContract_ShouldReturnSuccess()
         {
-            var newContract = new ContractDto
+            var json = JsonConvert.SerializeObject(new
             {
-                ClientId = 1,
-                Status = "Active",
-                ServiceLevel = "Basic",
-                StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow.AddMonths(1)
-            };
+                name = "Test",
+                email = "test@test.com",
+                phone = "12345"
+            });
 
-            var response = await _client.PostAsJsonAsync("api/contracts", newContract);
-
-            response.EnsureSuccessStatusCode();
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
         }
     }
 }

@@ -14,27 +14,20 @@ namespace GLMS.Controllers
             _api = api;
         }
 
-        // =========================
-        // LIST
-        // =========================
+       
         public async Task<IActionResult> Index()
         {
             var contracts = await _api.GetContracts();
             return View(contracts);
         }
 
-        // =========================
-        // DETAILS
-        // =========================
+       
         public async Task<IActionResult> Details(int id)
         {
             var contract = await _api.GetContract(id);
             return View(contract);
         }
 
-        // =========================
-        // CREATE (GET)
-        // =========================
         public async Task<IActionResult> Create()
         {
             ViewBag.Clients = await SafeGetClients();
@@ -44,9 +37,7 @@ namespace GLMS.Controllers
             return View();
         }
 
-        // =========================
-        // CREATE (POST)
-        // =========================
+        
         [HttpPost]
         [HttpPost]
         public async Task<IActionResult> Create(ContractDto model, IFormFile file)
@@ -71,9 +62,7 @@ namespace GLMS.Controllers
             }
         }
 
-        // =========================
-        // EDIT (GET)
-        // =========================
+        
         public async Task<IActionResult> Edit(int id)
         {
             var contract = await _api.GetContract(id);
@@ -85,9 +74,7 @@ namespace GLMS.Controllers
             return View(contract);
         }
 
-        // =========================
-        // EDIT (POST)
-        // =========================
+        
         [HttpPost]
         public async Task<IActionResult> Edit(int id, ContractDto model)
         {
@@ -95,9 +82,7 @@ namespace GLMS.Controllers
             return RedirectToAction("Index");
         }
 
-        // =========================
-        // DELETE
-        // =========================
+       
         public async Task<IActionResult> Delete(int id)
         {
             var contract = await _api.GetContract(id);
@@ -111,9 +96,7 @@ namespace GLMS.Controllers
             return RedirectToAction("Index");
         }
 
-        // =========================
-        // HELPERS
-        // =========================
+       
         private async Task<List<ClientDto>> SafeGetClients()
         {
             try

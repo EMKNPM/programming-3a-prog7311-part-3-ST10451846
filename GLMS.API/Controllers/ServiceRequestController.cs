@@ -30,7 +30,7 @@ public class ServiceRequestController : ControllerBase
         return Ok(result);
     }
 
-    // ✅ FIXED
+
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] ServiceRequestDto dto)
     {
@@ -38,7 +38,7 @@ public class ServiceRequestController : ControllerBase
         return Ok(result);
     }
 
-    // ✅ FIXED
+
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] ServiceRequestDto dto)
     {

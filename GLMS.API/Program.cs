@@ -106,7 +106,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<GLMSDbContext>();
-    dbContext.Database.Migrate(); // Ensures DB exists on startup
+    dbContext.Database.Migrate(); 
 }
 
 if (app.Environment.IsDevelopment())

@@ -15,9 +15,8 @@ namespace GLMS.Services
             _http = http;
         }
 
-        // =========================
         // CLIENTS
-        // =========================
+     
 
         public async Task<List<ClientDto>> GetClients()
         {
@@ -61,9 +60,9 @@ namespace GLMS.Services
             response.EnsureSuccessStatusCode();
         }
 
-        // =========================
+       
         // CONTRACTS
-        // =========================
+     
 
         public async Task<List<ContractDto>> GetContracts()
         {
@@ -83,9 +82,9 @@ namespace GLMS.Services
             return JsonConvert.DeserializeObject<ContractDto>(json) ?? new ContractDto();
         }
 
-        // =========================
+
         // FIXED FILE UPLOAD (IMPORTANT)
-        // =========================
+      
 
         public async Task CreateContractWithFile(ContractDto model)
         {
@@ -97,7 +96,7 @@ namespace GLMS.Services
             content.Add(new StringContent(model.StartDate.ToString("o")), "StartDate");
             content.Add(new StringContent(model.EndDate.ToString("o")), "EndDate");
 
-            // ✅ SAFE FILE HANDLING
+            
             if (model.File != null && model.File.Length > 0)
             {
                 using var stream = model.File.OpenReadStream();
@@ -133,9 +132,9 @@ namespace GLMS.Services
             response.EnsureSuccessStatusCode();
         }
 
-        // =========================
+       
         // SERVICE REQUESTS
-        // =========================
+       
 
         public async Task<List<ServiceRequestDto>> GetServiceRequests()
         {

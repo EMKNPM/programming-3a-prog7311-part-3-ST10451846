@@ -15,9 +15,9 @@ namespace GLMS.API.Controllers
             _service = service;
         }
 
-        // =========================
+     
         // GET ALL
-        // =========================
+    
         [HttpGet]
         public async Task<IActionResult> GetAll(
             string? status,
@@ -27,9 +27,9 @@ namespace GLMS.API.Controllers
             return Ok(await _service.GetContractsAsync(status, startDate, endDate));
         }
 
-        // =========================
+       
         // GET BY ID
-        // =========================
+    
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -41,9 +41,9 @@ namespace GLMS.API.Controllers
             return Ok(contract);
         }
 
-        // =========================
-        // CREATE (DTO ONLY)
-        // =========================
+      
+        // CREATE 
+      
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ContractDto dto)
         {
@@ -51,9 +51,9 @@ namespace GLMS.API.Controllers
             return Ok(created);
         }
 
-        // =========================
-        // UPDATE (DTO ONLY)
-        // =========================
+       
+        // UPDATE 
+    
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] ContractDto dto)
         {
@@ -61,9 +61,9 @@ namespace GLMS.API.Controllers
             return NoContent();
         }
 
-        // =========================
+        
         // DELETE
-        // =========================
+      
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -71,9 +71,9 @@ namespace GLMS.API.Controllers
             return NoContent();
         }
 
-        // =========================
+       
         // STATUS UPDATE
-        // =========================
+    
         [HttpPatch("{id}/status")]
         public async Task<IActionResult> UpdateStatus(int id, [FromBody] string status)
         {
@@ -81,9 +81,9 @@ namespace GLMS.API.Controllers
             return NoContent();
         }
 
-        // =========================
-        // FILE UPLOAD (FIXED - USE SERVICE ONLY)
-        // =========================
+       
+        // FILE UPLOAD 
+       
         [HttpPost("{id}/upload")]
         public async Task<IActionResult> Upload(int id, IFormFile file)
         {
@@ -91,9 +91,9 @@ namespace GLMS.API.Controllers
             return Ok();
         }
 
-        // =========================
+      
         // FILE DOWNLOAD
-        // =========================
+     
         [HttpGet("{id}/download")]
         public async Task<IActionResult> Download(int id)
         {

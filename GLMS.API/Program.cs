@@ -109,11 +109,12 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.Migrate(); 
 }
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "GLMS API v1");
+    c.RoutePrefix = string.Empty;
+});
 
 app.UseStaticFiles();
 
@@ -123,5 +124,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGet("/", () => "GLMS API is running. Visit /swagger for API documentation.");
 
 app.Run();

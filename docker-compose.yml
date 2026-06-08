@@ -14,7 +14,6 @@ services:
       - glms-network
 
   glms-backend-api:
-    
     build:
       context: .             # Root folder
       dockerfile: GLMS.API/Dockerfile
@@ -22,10 +21,11 @@ services:
     depends_on:
       - sql-server-db
     environment:
-      ASPNETCORE_URLS: "http://+:8080"
-      ConnectionStrings__DefaultConnection: "Server=sql-server-db;Database=GLMSDB;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True"
+      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_ENVIRONMENT=Development  # <--- CRITICAL: This enables Swagger inside Docker
+      - ConnectionStrings__DefaultConnection=Server=sql-server-db;Database=GLMSDB;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True
     ports:
-      - "8080:8080"
+      - "8080:8080" # Maps local port 8080 to container port 8080
     networks:
       - glms-network
 
@@ -37,9 +37,9 @@ services:
     depends_on:
       - glms-backend-api
     environment:
-      ApiBaseUrl: "http://glms-backend-api:8080/"
+      - ApiBaseUrl=http://glms-backend-api:8080/
     ports:
-      - "8081:8080"
+      - "8081:8080" # Maps local port 8081 to container port 8080
     networks:
       - glms-network
 

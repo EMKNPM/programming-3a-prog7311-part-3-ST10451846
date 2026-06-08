@@ -1,4 +1,4 @@
-﻿using GLMS.API.Data;
+using GLMS.API.Data;
 using GLMS.API.Interfaces;
 using GLMS.API.Models;
 using GLMS.Models;
@@ -71,7 +71,7 @@ namespace GLMS.API.Services
                 .FirstOrDefaultAsync();
         }
 
-        // ✅ CREATE (DTO → Entity → DTO)
+        // ✅ CREATE (DTO → Entity → DTO with file handling)
         public async Task<ContractDto> CreateAsync(ContractDto dto)
         {
             var contract = new Contract
@@ -80,14 +80,32 @@ namespace GLMS.API.Services
                 StartDate = dto.StartDate,
                 EndDate = dto.EndDate,
                 Status = dto.Status,
-                ServiceLevel = dto.ServiceLevel,
-                AgreementFilePath = dto.AgreementFilePath
+                ServiceLevel = dto.ServiceLevel
             };
+
+            // Handle file upload if present
+            if (dto.AgreementFile != null && dto.AgreementFile.Length > 0)
+            {
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+                if (!Directory.Exists(uploadsFolder))
+                    Directory.CreateDirectory(uploadsFolder);
+
+                var fileName = Guid.NewGuid() + Path.GetExtension(dto.AgreementFile.FileName);
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await dto.AgreementFile.CopyToAsync(stream);
+                }
+
+                contract.AgreementFilePath = "/uploads/" + fileName;
+            }
 
             _context.Contracts.Add(contract);
             await _context.SaveChangesAsync();
 
             dto.Id = contract.Id;
+            dto.AgreementFilePath = contract.AgreementFilePath;
             return dto;
         }
 

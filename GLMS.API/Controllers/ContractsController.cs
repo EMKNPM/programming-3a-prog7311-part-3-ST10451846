@@ -1,4 +1,4 @@
-﻿using GLMS.API.Interfaces;
+using GLMS.API.Interfaces;
 using GLMS.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,11 +42,14 @@ namespace GLMS.API.Controllers
         }
 
       
-        // CREATE 
+        // CREATE (with optional file upload)
       
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ContractDto dto)
+        public async Task<IActionResult> Create([FromForm] ContractDto dto, IFormFile? file)
         {
+            if (file != null)
+                dto.AgreementFile = file;
+            
             var created = await _service.CreateAsync(dto);
             return Ok(created);
         }
